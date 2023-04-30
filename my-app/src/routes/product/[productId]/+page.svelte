@@ -1,6 +1,6 @@
 <script>
-    import {page} from '$app/stores'
-    const productId = $page.params.productId
+    import {page} from '$app/stores';
+    const productId = $page.params.productId;
 </script>
 
 <h1>Product details by ID</h1>

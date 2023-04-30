@@ -1,37 +1,56 @@
-# create-svelte
+# Sveltekit Tutorial
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Simple tutorial about routing.
 
 # create a new project in my-app
-npm create svelte@latest my-app
+pnpm create svelte@latest my-app
+
+Options validated :
+
+- skeleton
+- TypeScript
+- eslint
+- prettier
+- vitest for Unit Testing
+
+```
+cd my-app
+pnpm install
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
 npm run dev
 
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
-```
+
+## Into routes folder create
+
+product/[productId]/+page.svelte
+
+To access to this page, enter in you browser:
+
+localhost:5173/product/1
+
+Results appear into the page
+
+## Dynamique routing
+
+product/[productId]/reviews/[reviewId]/+page.svelte
+
+To access to this page, enter in you browser:
+
+localhost:5173/product/1/reviews/1
+
+Results appear into the page
 
 ## Building
 
 To create a production version of your app:
 
-```bash
 npm run build
-```
+
 
 You can preview the production build with `npm run preview`.
 

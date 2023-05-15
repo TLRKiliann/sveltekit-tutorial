@@ -185,6 +185,9 @@ Keep code of your page by :
 </style>
 ```
 
----
+## (auth)
 
-##
+auth folder in routes folder take parenthesis to avoid segment.
+Segment auth for login or for register.
+By this, we can directly access to login or to register by "/login" or "/register".
+

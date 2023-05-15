@@ -23,6 +23,7 @@ pnpm install
 npm run dev
 
 # or start the server and open the app in a new browser tab
+
 npm run dev -- --open
 
 ## Into routes folder create
@@ -51,7 +52,6 @@ To create a production version of your app:
 
 npm run build
 
-
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
@@ -73,7 +73,7 @@ http://localhost:5173/doc/routing/catch-all-routes
 
 We have a better ranking SEO by this organisation with segments.
 
-## to switch among lang
+## Switch among lang
 
 We cannot build a folder [[lang]] in routes, because it will generate a conflict with routing.
 For that, it's better to build a "marketing" folder to create inside it a [[lang]] folder with a page.
@@ -94,3 +94,34 @@ At this time, for showing **greeting** we can use :
 ```
 const greeting = greetings[lang];
 ```
+
+## Link (navigation)
+
+- Synthax of link :
+
+```
+<a href="/example"></a>
+```
+
+- Synthax to reach second segment :
+
+```
+<script>
+    import { page } from '$app/stores';
+    const productId = $page.params.productId;
+    const reviewId = $page.params;
+</script>
+
+<a href="/">Home</a>
+
+<h1>Product details by ID</h1>
+
+<h2>{productId}</h2>
+
+<a href={`/products/${productId}/reviews/1`}>review 1</a>
+<a href={`/products/${productId}/reviews/2`}>review 2</a>
+<a href={`/products/${productId}/reviews/3`}>review 3</a>
+```
+
+---
+

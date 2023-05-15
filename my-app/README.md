@@ -208,6 +208,99 @@ To verify, page of `forgot` allows us to see the 2 layouts.
 
 ---
 
+## +layout.svelte
+
+We can refactor this code :
+
+```
+(+layout.svelte)
+
+<header class="layout-header">Header</header>
+<slot />
+<footer class="layout-footer">Footer</footer>
+
+<style>
+	.layout-header {
+		width: 100%;
+		padding: 10px 0px;
+		text-align: center;
+		font-size: 2rem;
+		font-weight: bold;
+		background: #242424;
+		color: cyan;
+	}
+
+	.layout-footer {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		left: 0px;
+		padding: 10px 0px;
+		text-align: center;
+		font-size: 2rem;
+		font-weight: bold;
+		background: #242424;
+		color: cyan;
+	}
+</style>
+```
+
+by this :
+
+```
+(+layout.svelte)
+
+<script>
+	import Header from './header.svelte'
+	import Footer from './footer.svelte'
+</script>
+
+<Header />
+<slot />
+<Footer />
+```
+
+```
+(header.svelte)
+
+<header class="layout-header">Header</header>
+
+<style>
+	.layout-header {
+		width: 100%;
+		padding: 10px 0px;
+		text-align: center;
+		font-size: 2rem;
+		font-weight: bold;
+		background: #242424;
+		color: cyan;
+	}
+</style>
+```
+
+```
+(footer.svelte)
+
+<footer class="layout-footer">Footer</footer>
+
+<style>
+	.layout-footer {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		left: 0px;
+		padding: 10px 0px;
+		text-align: center;
+		font-size: 2rem;
+		font-weight: bold;
+		background: #242424;
+		color: cyan;
+	}
+</style>
+```
+
+header & footer are not mapped as route. So you can apply that to a specific +page.svelte (with a +layout.svelte).
+
 ## API
 
 Look at `lib/comments.ts`
@@ -269,8 +362,8 @@ import { json } from '@sveltejs/kit'
 import { comments } from '$lib/comments.ts'
 
 export async function POST(requestEvent) {
-	const { rquest } = requestEvent;
-	const { text } = await.rquest.json();
+	const { request } = requestEvent;
+	const { text } = await.request.json();
 	const newComment = {
 		id: comments.length + 1,
 		text
@@ -301,5 +394,3 @@ export async function GET(requestEvent) {
 ```
 
 Use the GET method from vscode to test it with `thunder client`.
-
-

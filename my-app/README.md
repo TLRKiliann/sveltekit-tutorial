@@ -2,8 +2,8 @@
 
 Simple tutorial about routing.
 
-# create a new project in my-app
-pnpm create svelte@latest my-app
+## create a new project in my-app
+$ pnpm create svelte@latest my-app
 
 Options validated :
 
@@ -14,17 +14,27 @@ Options validated :
 - vitest for Unit Testing
 
 ```
-cd my-app
-pnpm install
+$ cd my-app
+$ pnpm install
 ```
 
 ## Developing
 
-npm run dev
+$ pnpm run dev
 
 # or start the server and open the app in a new browser tab
 
-npm run dev -- --open
+$ pnpm run dev -- --open
+
+## Building
+
+To create a production version of your app:
+
+$ pnpm run build
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
 ## Into routes folder create
 
@@ -32,7 +42,7 @@ product/[productId]/+page.svelte
 
 To access to this page, enter in you browser:
 
-localhost:5173/product/1
+`localhost:5173/product/1`
 
 Results appear into the page
 
@@ -42,19 +52,9 @@ product/[productId]/reviews/[reviewId]/+page.svelte
 
 To access to this page, enter in you browser:
 
-localhost:5173/product/1/reviews/1
+`localhost:5173/product/1/reviews/1`
 
 Results appear into the page
-
-## Building
-
-To create a production version of your app:
-
-npm run build
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
 ## doc with [...slug]
 
@@ -76,7 +76,7 @@ We have a better ranking SEO by this organisation with segments.
 ## Switch among lang
 
 We cannot build a folder [[lang]] in routes, because it will generate a conflict with routing.
-For that, it's better to build a "marketing" folder to create inside it a [[lang]] folder with a page.
+For that, it's better to build a `marketing` folder to create inside it a [[lang]] folder with a page.
 In +page.svelte we have to precise lang :
 
 ```
@@ -97,7 +97,7 @@ const greeting = greetings[lang];
 
 ## Link (navigation)
 
-- Synthax of link :
+- Synthax of link (sveltekit recommand to not use `<link>`) :
 
 ```
 <a href="/example"></a>
@@ -125,9 +125,9 @@ const greeting = greetings[lang];
 
 ---
 
-## beforNavigate & afterNavigate
+## beforNavigate - afterNavigate & goto
 
-**keywords: goto - navigation**
+****keywords: goto - navigation**
 
 - Look at console into your browser during navigation.
 
@@ -193,7 +193,7 @@ By this, we can directly access to login or to register by "/login" or "/registe
 
 ## password
 
-3 folders have been created
+3 folders have been created :
 
 - forgot
 - info
@@ -201,9 +201,105 @@ By this, we can directly access to login or to register by "/login" or "/registe
 
 We can play with layout to choose if layout of auth or/& password should appear or not.
 
-- No layouts => +page@.svelte
+- None layouts => +page@.svelte
 - No auth layout => +page@(auth).svelte
 
-To verify, page of "forgot" allows us to see the 2 layouts.
+To verify, page of `forgot` allows us to see the 2 layouts.
 
 ---
+
+## API
+
+Look at `lib/comments.ts`
+
+GET
+
+```
+import { comments } from '$lib/comments.ts'
+
+export function GET() {
+	return new Response(JSON.stringify(comments), {
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+}
+```
+
+Instead to do something like above, we can use `json` like that.
+
+```
+import { json } from '@sveltejs/kit'
+import { comments } from '$lib/comments.ts'
+
+export function GET() {
+	return json(comments);
+}
+```
+
+It's uses less lines of code.
+
+To test it in REST with `thunder client` of vscode:
+
+`http://[[::1]]:5173/api/comments`
+
+---
+
+POST
+
+```
+import { comments } from '$lib/comments.ts'
+
+export async function POST(requestEvent) {
+	const { rquest } = requestEvent;
+	const { text } = await.rquest.json();
+	const newComment = {
+		id: comments.length + 1,
+		text
+	};
+	comments.push(newComment);
+	return new Response(JSON.stringify(newComment), { status: 201 });
+}
+```
+
+With `json` we can write less lines of code.
+
+```
+import { json } from '@sveltejs/kit'
+import { comments } from '$lib/comments.ts'
+
+export async function POST(requestEvent) {
+	const { rquest } = requestEvent;
+	const { text } = await.rquest.json();
+	const newComment = {
+		id: comments.length + 1,
+		text
+	};
+	comments.push(newComment);
+	return json(newComment, { status: 201 });
+}
+```
+
+## Dynamic API Route
+
+`routes/api/comments/[commentId]/+server.ts`
+
+GET
+
+**keywords : commentId - params**
+
+```
+import { json } from '@sveltejs/kit'
+import { comments } from '$lib/comments.ts'
+
+export async function GET(requestEvent) {
+	const {params} = requestEvent;
+	const {text} = params;
+	const comment = comments.find((comment) => comment.id === parseInt(commentId));
+	return json(comment);
+}
+```
+
+Use the GET method from vscode to test it with `thunder client`.
+
+

@@ -191,3 +191,19 @@ auth folder in routes folder take parenthesis to avoid segment.
 Segment auth for login or for register.
 By this, we can directly access to login or to register by "/login" or "/register".
 
+## password
+
+3 folders have been created
+
+- forgot
+- info
+- reset
+
+We can play with layout to choose if layout of auth or/& password should appear or not.
+
+- No layouts => +page@.svelte
+- No auth layout => +page@(auth).svelte
+
+To verify, page of "forgot" allows us to see the 2 layouts.
+
+---

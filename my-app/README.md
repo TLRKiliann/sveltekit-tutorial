@@ -55,3 +55,20 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## doc with [...slug]
+
+In doc folder, I've created a folder [...slug] & into this folder, I've created a file +page.svelte.
+With [...slug] we can map all segments what we want, as example : 
+
+http://localhost:5173/doc
+
+http://localhost:5173/doc/1
+
+http://localhost:5173/doc/concept1
+
+http://localhost:5173/doc/routing
+
+http://localhost:5173/doc/routing/catch-all-routes
+
+We have a better ranking SEO by this organisation with segments.

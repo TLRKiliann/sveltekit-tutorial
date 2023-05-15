@@ -72,3 +72,25 @@ http://localhost:5173/doc/routing
 http://localhost:5173/doc/routing/catch-all-routes
 
 We have a better ranking SEO by this organisation with segments.
+
+## to switch among lang
+
+We cannot build a folder [[lang]] in routes, because it will generate a conflict with routing.
+For that, it's better to build a "marketing" folder to create inside it a [[lang]] folder with a page.
+In +page.svelte we have to precise lang :
+
+```
+const greetings = {
+	en: 'Hello',
+	es: 'Ola!',
+	fr: 'Bonjour'
+};
+
+const { lang = 'en' } = $page.params;
+```
+
+At this time, for showing **greeting** we can use : 
+
+```
+const greeting = greetings[lang];
+```

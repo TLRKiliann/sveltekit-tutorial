@@ -18,15 +18,15 @@ $ cd my-app
 $ pnpm install
 ```
 
-## Developing
+### Developing
 
 $ pnpm run dev
 
-# or start the server and open the app in a new browser tab
+or start the server and open the app in a new browser tab
 
 $ pnpm run dev -- --open
 
-## Building
+### Building
 
 To create a production version of your app:
 
@@ -375,6 +375,8 @@ export async function POST(requestEvent) {
 
 ## Dynamic API Route
 
+End point for delete & patch (not update all data, but just one).
+
 `routes/api/comments/[commentId]/+server.ts`
 
 GET
@@ -394,3 +396,36 @@ export async function GET(requestEvent) {
 ```
 
 Use the GET method from vscode to test it with `thunder client`.
+
+In the same file, we can add patch & delete.
+
+```
+(patch)
+
+export async function PATCH(requestEvent) {
+	const { params, request } = requestEvent;
+	const { commentId } = params;
+	const { text } = await request.json();
+	const comment = comments.find((comment) => comment.id === parseInt(commentId));
+	comment.text = text;
+	return json(comment);
+}
+```
+
+```
+(delete)
+
+export async function DELETE(requestEvent) {
+	const { params } = requestEvent;
+	const { commentId } = params;
+	const deleteComment = comments.find((comment) => comment.id === parseInt(commentId));
+	const index = comments.findIndex((comments) => comment.id === parseInt(commentId));
+	comments.slice(index, 1);
+	return json(deleteComment);
+}
+```
+
+---
+
+## API game (for understand load (universal & server))
+

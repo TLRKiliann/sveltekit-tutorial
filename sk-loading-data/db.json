@@ -1,0 +1,30 @@
+{
+	"products": [
+		{
+			"id": 1,
+			"title": "product 1",
+			"price": 700,
+			"description": "Desc 1"
+		},
+		{
+			"id": 2,
+			"title": "product 2",
+			"price": 650,
+			"description": "Desc 2"
+		},
+		{
+			"id": 3,
+			"title": "product 3",
+			"price": 420,
+			"description": "Desc 3"
+		}
+	],
+	"postcodes": [
+		{
+			"postcode": "E34NA",
+			"building_name": "Williams Trakenart",
+			"line_1": "person data 1",
+			"line_2": "person data 2"
+		}
+	]
+}

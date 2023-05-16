@@ -1,5 +1,19 @@
 # External API simulation with load
 
+## Install
+
+$ pnpm install server-json
+
+package.json config :
+
+```
+"server": "json-server --watch db.json --port 4000"
+```
+
+$ pnpm run server
+
+## LOAD
+
 products/+page.js
 
 load return always an object.

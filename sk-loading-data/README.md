@@ -1,5 +1,35 @@
 # External API simulation with load
 
+## Install
+
+$ pnpm install server-json
+
+package.json config :
+
+```
+"server": "json-server --watch db.json --port 4000"
+```
+
+$ pnpm run server
+
+## LOAD
+
+There are 2 contexts to use `load` :
+- universal load action
+- server load action
+
+Universal load is for client side and server side.
+Not for sensitive data.
+
+Server load action is for credentials & sensitive data.
+It has not to return value.
+
+load returns always an object that it will be catch by data in `+age.svelte` (UI).
+
+---
+
+## Universal load action
+
 products/+page.js
 
 load return always an object.
@@ -23,7 +53,7 @@ export const load = async (loadEvent) => {
 
 products/+page.svelte
 
-data refers always to the load that it returns an object.
+`data` refers always to the `object` provided by `load`.
 
 ```
 (+page.svelte)
@@ -44,7 +74,9 @@ data refers always to the load that it returns an object.
 {/each}
 ```
 
-## load with API SvelteKit that call data from external API.
+## load with API SvelteKit which calls data from external API.
+
+For this example, you can use server-json to simulate external api.
 
 address/ :
 - +page.svelte (UI)
@@ -53,5 +85,12 @@ address/ :
 api/postcodes/ :
 - +server.js (fetch data from external API)
 
-When user reach the `+page.svelte (UI)`, data is loaded by `+page.js` from `+server.js (api)`.
-`+server.js` fetch data from external api.
+When user reach the `+page.svelte (UI)`, data is loaded by `+page.js` **(fetch('/api/postcodes'))** from `+server.js (api)`. `+server.js` file fetch data from external api **(fetch('http://localhost:4000/postcodes'))**.
+
+## Server load action
+
+keyword : serverLoadEvent
+
++page.server.js
+
+---

@@ -187,7 +187,7 @@ if (productId > 3) {
 
 ## Layout
 
-To see all features from db.json with product by id, we need to set a layout.
+To see features from `db.json` with product by id, we need to set layouts.
 
 Look at products folder!
 
@@ -198,3 +198,26 @@ We can also use +layout.server.js if serverLoadEvent is required.
 
 ---
 
+We can also set layouts in routes folder, by creating `routes/+layout.svelte` & `routes/+layout.js` to set notification with `products/+page.js`.
+
+We also set header of page as follow :
+
+```
+<script>
+	import { page } from '$app/stores';
+	export let data;
+	const { username } = data;
+</script>
+
+<svelte:head>
+	<title>{$page.data.title || "Codevolution"}</title>
+</svelte:head>
+
+{#if $page.data.notification}
+	<p>{$page.data.notification}</p>
+{/if}
+
+<div>Welcome {username}</div>
+
+<slot />
+```

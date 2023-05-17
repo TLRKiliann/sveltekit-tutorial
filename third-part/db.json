@@ -1,0 +1,17 @@
+{
+  "stockA":
+    {
+      "model": "stock 100",
+      "number": 7777
+    },
+  "stockB":
+    {
+      "model": "stock 200",
+      "number": 272727
+    },
+  "stockC":
+    {
+      "model": "stock 300",
+      "number": 2824
+    }
+}

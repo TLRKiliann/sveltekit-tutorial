@@ -2,7 +2,7 @@
 
 ## Install
 
-$ pnpm install server-json
+$ pnpm install json-server
 
 package.json config :
 

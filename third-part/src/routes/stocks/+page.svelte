@@ -1,7 +1,12 @@
 <script>
+	import { invalidateAll } from '$app/navigation';
 	export let data;
 	const title = data.title;
 	const stocks = data.stocks;
+
+	function refresh() {
+		return invalidateAll();
+	};
 </script>
 
 <h1>All Stocks</h1>
@@ -14,3 +19,5 @@
 		<hr />
 	</div>
 {/each}
+
+<button on:click={refresh}>Refresh</button>

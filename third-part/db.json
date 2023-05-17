@@ -1,14 +1,17 @@
 {
-  "stocks": [
+  "stockA":
     {
-      "id": 1,
-      "model": "EHRZ",
-      "number": 3200
+      "model": "stock 100",
+      "number": 7777
     },
+  "stockB":
     {
-      "id": 2,
-      "model": "12HTR",
-      "number": 777
+      "model": "stock 200",
+      "number": 272727
+    },
+  "stockC":
+    {
+      "model": "stock 300",
+      "number": 2824
     }
-  ]
 }

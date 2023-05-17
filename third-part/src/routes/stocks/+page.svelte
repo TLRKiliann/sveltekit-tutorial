@@ -1,23 +1,25 @@
 <script>
-	import { invalidateAll } from '$app/navigation';
+	import { invalidate } from '$app/navigation';
 	export let data;
 	const title = data.title;
-	const stocks = data.stocks;
 
 	function refresh() {
-		return invalidateAll();
+		return invalidate('stocks:actively-trading');
 	};
 </script>
 
 <h1>All Stocks</h1>
 <h2>{title}</h2>
 
-{#each stocks as stock}
-	<div>
-		<a href={`/stocks/${stock.id}`}>Model: {stock.model}</a>
-		<p>Number: {stock.number}</p>
-		<hr />
-	</div>
-{/each}
+<div>
+	<hr />
+	<h3>Model: {data.stock_a.model} - Number: {data.stock_a.number}</h3>
+	<hr />
+	<h3>Model: {data.stock_b.model} - Number: {data.stock_b.number}</h3>
+	<hr />
+	<h3>Model: {data.stock_c.model} - Number: {data.stock_c.number}</h3>
+	<hr />
+</div>
+
 
 <button on:click={refresh}>Refresh</button>

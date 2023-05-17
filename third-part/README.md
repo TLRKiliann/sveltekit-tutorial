@@ -8,9 +8,11 @@ package.json config :
 
 $ pnpm run server
 
-## Refresh a page (under development)
+## Refresh a page
 
 keywords: invalidate() - invalidateAll() - depends
+
+To display the refresh effect by clicking button, make some change in db.json & observe when you click on the button refresh.
 
 ```
 (+page.svelte)

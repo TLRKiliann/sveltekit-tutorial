@@ -133,7 +133,7 @@ if (productId > 3) {
 (+error.svelte)
 
 <script>
-	import { page } from '@app/stores'; 
+	import { page } from '$app/stores'; 
 </script>
 
 <h1>
@@ -162,7 +162,7 @@ if (productId > 3) {
 (+error.svelte)
 
 <script>
-	import { page } from '@app/stores'; 
+	import { page } from '$app/stores'; 
 </script>
 
 <h1>

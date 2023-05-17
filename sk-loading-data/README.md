@@ -184,3 +184,17 @@ if (productId > 3) {
 	throw redirect(307, '/products');
 }
 ```
+
+## Layout
+
+To see all features from db.json with product by id, we need to set a layout.
+
+Look at products folder!
+
+- +layout.js (loadEvent)
+- +layout.svelte (UI)
+
+We can also use +layout.server.js if serverLoadEvent is required.
+
+---
+

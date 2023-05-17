@@ -4,6 +4,6 @@
 
 <h1>product page</h1>
 
-<h2>{product.title}</h2>
+<a href={`/products/${product.id}`}>{product.title}</a>
 <p>{product.description}</p>
 <hr />

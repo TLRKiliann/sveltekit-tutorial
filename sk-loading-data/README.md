@@ -87,10 +87,100 @@ api/postcodes/ :
 
 When user reach the `+page.svelte (UI)`, data is loaded by `+page.js` **(fetch('/api/postcodes'))** from `+server.js (api)`. `+server.js` file fetch data from external api **(fetch('http://localhost:4000/postcodes'))**.
 
-## Server load action
+## Server load function
 
 keyword : serverLoadEvent
 
-+page.server.js
+`Server load function is useful when you have to work with sensitive information such as credentials or API keys.`
+
+Look at products folder !
+
+product.svelte is the Component
+
++page.svelte calls product.svelte
+
+products/:
+- +page.js (loadEvent)
+- +page.server.js (serverLoadEvent)
+
+`+page.server.js cannot return Component as +page.js, because it uses serverLoadEvent & it cannot stringify a function (component constructor are not serializables) !`
 
 ---
+
+Look at [productId]
+
+keywords: serverLoadEvent - params - productId
+
+With serverLoadEvent (+page.server.js), we return object that contains product & that we can see in UI (+page.svelte).
+
+We can also see, the `{ params, url, route: route.id }` with console.log().
+
+## Error
+
+Into folder [productId]
+
+```
+(+page.server.js)
+
+import {error} from '@sveltejs/kit'
+
+if (productId > 3) {
+	throw error(404, 'Product not found');
+}
+```
+
+```
+(+error.svelte)
+
+<script>
+	import { page } from '@app/stores'; 
+</script>
+
+<h1>
+	{$page.status}: {$page.error.message}
+</h1>
+```
+
+If we prefer a more friendly message, we can erase {$page.status}.
+
+or we can do that as follow as well :
+
+```
+(+page.server.js)
+
+import {error} from '@sveltejs/kit'
+
+if (productId > 3) {
+	throw error(404,{
+		message: 'Product not found',
+		hint: 'try a different product'
+	});
+}
+```
+
+```
+(+error.svelte)
+
+<script>
+	import { page } from '@app/stores'; 
+</script>
+
+<h1>
+	{$page.error.message}
+</h1>
+<p>
+	{$page.error.hint}
+</p>
+```
+
+## Redirect
+
+```
+(+page.server.js)
+
+import { redirect } from '@sveltejs/kit'
+
+if (productId > 3) {
+	throw redirect(307, '/products');
+}
+```

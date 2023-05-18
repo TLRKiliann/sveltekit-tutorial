@@ -12,3 +12,6 @@ export const load = async (loadEvent) => {
 		stock_c: response_C.json()
 	};
 };
+
+export const ssr = false;
+export const csr = true;

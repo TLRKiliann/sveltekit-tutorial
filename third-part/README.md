@@ -164,3 +164,135 @@ Preaload data with a button.
 ```
 
 With the code above, we cannot see the preloading of json file with `preloadCode`, but it's possible by replacing `preloadCode` with `preloadData`.
+
+## CSR & SSR
+
+look at : /stocks/+page.js
+
+We can set code below with universal load :
+
+```
+export const ssr = true;
+export const csr = true;
+```
+We can only use ssr like this :
+
+```
+export const ssr = true;
+export const csr = false;
+```
+As well, we can only use csr :
+
+```
+export const ssr = false;
+export const csr = true;
+```
+
+Or none of them :
+
+```
+export const ssr = false;
+export const csr = false;
+```
+
+---
+
+## CSR & SSR with preload
+
+Into generated folder of .svelte-kit folder there are 2 folders :
+- client
+- server
+
+**pnpm run build**
+
+$ pnpm run build generate an `output` folder which containes 2 folders :
+- client
+- server
+
+In a +page.js that contains universal load :
+
+`export const prerender = true;`
+
+when we use `pnpm run build`, we can see that the prerender in the console. We can see a new folder prerender in `output` folder.
+
+`pnpm run preview` don't care `export const prerender = true` & run in another port;
+
+We can use :
+- `export const prerender = true`;
+- `export const csr = false;`
+
+$ pnpm run build => we cannot see log anymore.
+
+We can use prerender also with api :
+
+/api/current-time
+
+`export const prerender = true;`
+
+$ pnpm run build
+
+$ pnpm run preview
+
+As you can see, prerender contains current-time.
+
+If we delete `export const prerender = true;` in `/api/current-time/+server.js` page & let an `export const prerender = true;` in a +page.js that calls `/api/current-time/+server.js` page, the prerendered folder will be done for the api too !
+
+I let you try by using :
+- pnpm run build
+- pnpm run preview
+
+## prerender with dynamic api routes
+
+In products, we can use `export const prerender = true`. We also can use it in [productId]. Take a look in the prerendered folder.
+
+But it's not necessarly to do this.
+
+```
+import adapter from '@sveltejs/adapter-auto';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+	kit: {
+		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
+		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
+		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
+		adapter: adapter(),
+		prerender: {
+			crawl: true,
+			entries: ['/']
+		}
+	}
+};
+export default config;
+```
+
+If we only want to select some file to .svelte-kit/generated/prerendered/pages :
+
+```
+import adapter from '@sveltejs/adapter-auto';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+	kit: {
+		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
+		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
+		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
+		adapter: adapter(),
+		prerender: {
+			crawl: false,
+			entries: ['/', '/products', '/products/1', '/products/2']
+		}
+	}
+};
+export default config;
+```
+
+$ pnpm run build
+
+$ pnpm run preview
+
+Now console show us a problem when we click on product 3 (/products/3).
+
+To resolve this issue, we can use in folder [productId]/+page.js :
+
+`export const prerender = 'auto';`

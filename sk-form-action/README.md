@@ -1,38 +1,121 @@
-# create-svelte
+# sk-form-action
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+That's about form with auth & simple form.
 
-## Creating a project
+There are 3 folders :
+- auth
+- authentify
+- auth-modal
 
-If you're seeing this, you've probably already done this step. Congrats!
+- auth is basic auth
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- authentify is the right auth with sveltekit.
 
-# create a new project in my-app
-npm create svelte@latest my-app
+- auth-modal is for testing authentify as explain in lines below.
+
+keywords : request - cookies - url - redirect - redirectTo - fail
+
+## To verify auth
+
+In routes/auth-modal/+page.svelte file, we have the code as below :
+
+```
+<script>
+	export let form;
+</script>
+
+<form method='post' action='/authentify?/login'>
+	<p>{form?.message || ""}</p>
+	<input type="text" name="username" placeholder="Username" />
+	<input type="password" name="password" placeholder="Password" />
+	<button type="submit">Login</button>
+	<button formaction="/authentify?/register">Register</button>
+</form>
 ```
 
-## Developing
+This code permits to verify if auth function of `routes/authentify/+page.server.js` file works correctly.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## To preserve username (don't do that with password !)
 
-```bash
-npm run dev
+routes/authentify/+page.server.js
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```
+import { fail } from '@sveltejs/kit';
+
+		if (!username || !password) {
+			return fail(400, {
+				username,
+				message: "Missing username or password"
+			})
+		}
 ```
 
-## Building
+routes/authentify/+page.svelte
 
-To create a production version of your app:
-
-```bash
-npm run build
+```
+	<input type="text" name="username" placeholder="Username" value={form?.username ?? ''} />
 ```
 
-You can preview the production build with `npm run preview`.
+## To redirect
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+keywords : redirect - redirectTo - url - searchParams - get
+
+synthax : 
+- ?/register&redirectTo 
+- $page.url.searchParams.get('redirectTo') || '/'; 
+- throw redirect(303, url.searchParams.get('redirectTo') || '/');
+
+If user isn't logged in or registered (no cookies set), he's redirected to the login page (authentify).
+
+routes/news/+page.server.js
+
+```
+import { redirect } from '@sveltejs/kit';
+
+export const load = ({ cookies, url }) => {
+	if (!cookies.get("username")) {
+		throw redirect(307, `/authentify?redirectTo=${url.pathname}`);
+	}
+```
+
+If user is logged in, he's automatically redirect to news page.
+
+routes/authentify/+page.svelte
+
+```
+<script>
+	import { page } from '$app/stores';
+	
+	...
+
+	const redirectTo = $page.url.searchParams.get('redirectTo') || '/';
+</script>
+
+<form method='post' action='?/login&redirectTo={redirectTo}'>
+	
+	...
+
+	<button formaction="?/register&redirectTo={redirectTo}">Register</button>
+</form>
+```
+
+routes/authentify/+page.server.js
+
+```
+import { fail, redirect } from '@sveltejs/kit';
+
+export const actions = {
+	login: async ({ request, cookies, url }) => {
+		
+		...
+
+		if (!username || !password) {
+			return fail(400, {
+				username,
+				message: "Missing username or password"
+			})
+		}		
+		cookies.set('username', username, {path: '/'});
+		throw redirect(303, url.searchParams.get('redirectTo') || '/');
+	},
+```

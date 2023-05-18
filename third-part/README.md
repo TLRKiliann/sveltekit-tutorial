@@ -141,7 +141,7 @@ Preserve no-scroll between pages. It's possible to use css for adding effects.
 
 ## Preload programmatically
 
-keywords : goto - preloadData - preloadCode - focus - mouseover - mousedown (same as tap) - mousedown - async await
+keywords : goto - preloadData - preloadCode - depends() - focus - mouseover - mousedown (same as tap) - mousedown - async await
 
 Preaload data with a button.
 
@@ -165,7 +165,33 @@ Preaload data with a button.
 
 With the code above, we cannot see the preloading of json file with `preloadCode`, but it's possible by replacing `preloadCode` with `preloadData`.
 
+depends
+
+```
+export const load = async (loadEvent) => {
+	
+	const { fetch, depends } = loadEvent;	// here !
+	depends('stocks:actively-trading');		// here !
+	
+	const title = 'Stock per model/number';
+	const response_A = await fetch('http://localhost:4000/stockA');
+	const response_B = await fetch('http://localhost:4000/stockB');
+	const response_C = await fetch('http://localhost:4000/stockC');
+	return {
+		title,
+		stock_a: response_A.json(),
+		stock_b: response_B.json(),
+		stock_c: response_C.json()
+	};
+};
+
+export const ssr = false;
+export const csr = true;
+```
+
 ## CSR & SSR
+
+keywords : export const ssr/csr = true or false;
 
 look at : /stocks/+page.js
 
@@ -195,9 +221,9 @@ export const ssr = false;
 export const csr = false;
 ```
 
----
+## CSR & SSR with prerender
 
-## CSR & SSR with preload
+keywords : export const prerender: true; // or 'auto';
 
 Into generated folder of .svelte-kit folder there are 2 folders :
 - client
@@ -205,11 +231,11 @@ Into generated folder of .svelte-kit folder there are 2 folders :
 
 **pnpm run build**
 
-$ pnpm run build generate an `output` folder which containes 2 folders :
+`pnpm run build` generate an `output` folder which containes 2 folders :
 - client
 - server
 
-In a +page.js that contains universal load :
+In a `+page.js` that contains universal load :
 
 `export const prerender = true;`
 
@@ -217,13 +243,13 @@ when we use `pnpm run build`, we can see that the prerender in the console. We c
 
 `pnpm run preview` don't care `export const prerender = true` & run in another port;
 
-We can use :
+We can also use :
 - `export const prerender = true`;
 - `export const csr = false;`
 
 $ pnpm run build => we cannot see log anymore.
 
-We can use prerender also with api :
+We can also use prerender with api :
 
 /api/current-time
 
@@ -291,8 +317,8 @@ $ pnpm run build
 
 $ pnpm run preview
 
-Now console show us a problem when we click on product 3 (/products/3).
+Now console shows us a problem when we click on product 3 (/products/3).
 
-To resolve this issue, we can use in folder [productId]/+page.js :
+To resolve this issue, we can use in folder /product/[productId]/+page.js :
 
 `export const prerender = 'auto';`

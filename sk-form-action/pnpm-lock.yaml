@@ -10,10 +10,10 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^2.0.0
-        version: 2.1.0(@sveltejs/kit@1.18.0(svelte@4.2.19)(vite@4.5.3))
+        version: 2.1.0(@sveltejs/kit@1.18.0(svelte@4.2.19)(vite@4.5.5))
       '@sveltejs/kit':
         specifier: ^1.5.0
-        version: 1.18.0(svelte@4.2.19)(vite@4.5.3)
+        version: 1.18.0(svelte@4.2.19)(vite@4.5.5)
       eslint:
         specifier: ^8.28.0
         version: 8.40.0
@@ -33,8 +33,8 @@ importers:
         specifier: ^4.2.19
         version: 4.2.19
       vite:
-        specifier: ^4.5.3
-        version: 4.5.3
+        specifier: ^4.5.5
+        version: 4.5.5
 
 packages:
 
@@ -794,8 +794,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  vite@4.5.3:
-    resolution: {integrity: sha512-kQL23kMeX92v3ph7IauVkXkikdDRsYMGTVl5KY2E9OY4ONLvkHf04MDTbnfo6NKxZiDLWzVpP5oTa8hQD8U3dg==}
+  vite@4.5.5:
+    resolution: {integrity: sha512-ifW3Lb2sMdX+WU91s3R0FyQlAyLxOzCSCP37ujw0+r5POeHPwe6udWVIElKQq8gk3t7b8rkmvqC6IHBpCff4GQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -991,14 +991,14 @@ snapshots:
 
   '@polka/url@1.0.0-next.21': {}
 
-  '@sveltejs/adapter-auto@2.1.0(@sveltejs/kit@1.18.0(svelte@4.2.19)(vite@4.5.3))':
+  '@sveltejs/adapter-auto@2.1.0(@sveltejs/kit@1.18.0(svelte@4.2.19)(vite@4.5.5))':
     dependencies:
-      '@sveltejs/kit': 1.18.0(svelte@4.2.19)(vite@4.5.3)
+      '@sveltejs/kit': 1.18.0(svelte@4.2.19)(vite@4.5.5)
       import-meta-resolve: 3.0.0
 
-  '@sveltejs/kit@1.18.0(svelte@4.2.19)(vite@4.5.3)':
+  '@sveltejs/kit@1.18.0(svelte@4.2.19)(vite@4.5.5)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.2.0(svelte@4.2.19)(vite@4.5.3)
+      '@sveltejs/vite-plugin-svelte': 2.2.0(svelte@4.2.19)(vite@4.5.5)
       '@types/cookie': 0.5.1
       cookie: 0.5.0
       devalue: 4.3.1
@@ -1012,11 +1012,11 @@ snapshots:
       svelte: 4.2.19
       tiny-glob: 0.2.9
       undici: 5.22.1
-      vite: 4.5.3
+      vite: 4.5.5
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@2.2.0(svelte@4.2.19)(vite@4.5.3)':
+  '@sveltejs/vite-plugin-svelte@2.2.0(svelte@4.2.19)(vite@4.5.5)':
     dependencies:
       debug: 4.3.4
       deepmerge: 4.3.1
@@ -1024,8 +1024,8 @@ snapshots:
       magic-string: 0.30.0
       svelte: 4.2.19
       svelte-hmr: 0.15.1(svelte@4.2.19)
-      vite: 4.5.3
-      vitefu: 0.2.4(vite@4.5.3)
+      vite: 4.5.5
+      vitefu: 0.2.4(vite@4.5.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -1558,7 +1558,7 @@ snapshots:
     dependencies:
       punycode: 2.3.0
 
-  vite@4.5.3:
+  vite@4.5.5:
     dependencies:
       esbuild: 0.18.17
       postcss: 8.4.31
@@ -1566,9 +1566,9 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
-  vitefu@0.2.4(vite@4.5.3):
+  vitefu@0.2.4(vite@4.5.5):
     optionalDependencies:
-      vite: 4.5.3
+      vite: 4.5.5
 
   which@2.0.2:
     dependencies:
